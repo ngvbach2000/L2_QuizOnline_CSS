@@ -1,4 +1,4 @@
-"# L2_QuizOnline_CSS" 
+# L2 QuizOnline with CSS, JS
 Lab 2: Quiz Online
 (Java Web)
 
