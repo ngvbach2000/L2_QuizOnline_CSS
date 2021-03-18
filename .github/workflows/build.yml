@@ -7,19 +7,33 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   build:
-    name: Build, Test and Analyze
+    name: Compile and Test
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Go
+      - name: Clone Repository
+        uses: actions/checkout@master
+      - name: Setup go
         uses: actions/setup-go@v1
         with:
           go-version: '1.13'
+      - run: make test
+
+  sonarCloudTrigger:
+    needs: build
+    name: SonarCloud Trigger
+    runs-on: ubuntu-latest
+    steps:
       - name: Clone Repository
         uses: actions/checkout@master
-      - name: Build and Test
-        run: make test
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  integrationTest:
+    needs: build
+    name: Integration Test
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Should run integration tests.
