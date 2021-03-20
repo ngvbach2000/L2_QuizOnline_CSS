@@ -342,7 +342,7 @@ public class QuestionDAO implements Serializable {
                 ps.setDate(5, sqlDate);
                 ps.setBoolean(6, question.isStatus());
                 int row = ps.executeUpdate();
-                while (row > 0) {
+                if (row > 0) {
                     return true;
                 }
             }
@@ -372,7 +372,7 @@ public class QuestionDAO implements Serializable {
                 ps.setBoolean(3, question.isStatus());
                 ps.setString(4, question.getQuestionID());
                 int row = ps.executeUpdate();
-                while (row > 0) {
+                if (row > 0) {
                     return true;
                 }
             }
@@ -399,7 +399,7 @@ public class QuestionDAO implements Serializable {
                 ps = con.prepareStatement(sql);
                 ps.setString(1, questionID);
                 int row = ps.executeUpdate();
-                while (row > 0) {
+                if (row > 0) {
                     return true;
                 }
             }

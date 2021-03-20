@@ -76,7 +76,7 @@ public class AnswerDAO implements Serializable{
                 ps.setString(2, answer.getAnswerID());
                 ps.setString(3, answer.getAnswerContent());
                 int row = ps.executeUpdate();
-                while (row > 0) {
+                if (row > 0) {
                     return true;
                 }
             }
@@ -104,7 +104,7 @@ public class AnswerDAO implements Serializable{
                 ps.setString(1, answer.getAnswerContent());
                 ps.setString(2, answer.getAnswerID());
                 int row = ps.executeUpdate();
-                while (row > 0) {
+                if (row > 0) {
                     return true;
                 }
             }
